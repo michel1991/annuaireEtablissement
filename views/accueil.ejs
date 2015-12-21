@@ -235,6 +235,20 @@
             language: "fr"
 
         });
+
+        $.getJSON( "/region", function(data ) {
+            var items = [];
+           $('#region option').remove();
+           $('#region').append('<option value="test"></option>');
+            $.each( data, function( key, val ) {
+                //console.log(val.name);
+                $('#region').append('<option value="'+val.name+'">'+val.name+'</option>');
+                //console.log('<option value="'+val.name+'">'+val.name+'</option>');
+            });
+
+
+            $('#region').select2().trigger('change');
+        });
     });
 </script>
 </body>
