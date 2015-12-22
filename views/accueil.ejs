@@ -69,10 +69,6 @@
                                             <label for="region" class="col-sm-2 control-label">R&eacute;gion:</label>
                                             <div class="col-sm-10">
                                                 <select id="region"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
-                                                    <option value=""></option>
-                                                    <option value="alsace">Alsace</option>
-                                                    <option value="maritime">Alpe maritime</option>
-                                                    <option value="cote">Cote azur</option>
                                                 </select>
                                                 <!--<input type="text" class="form-control"  placeholder="Saisir une r&eacute;gion">-->
                                             </div>
@@ -80,33 +76,30 @@
 
                                     </div>
 
-
-
                                     <div class="col-lg-4 form-horizontal">
 
                                         <div class="form-group">
-                                            <label for="acade" class="col-sm-2 control-label">Academie:</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="acade" placeholder="Saisir une academie">
+                                            <label for="academie" class="col-sm-2 control-label">Academie:</label>
+                                            <div class="col-sm-10">
+                                                <select id="academie"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
+                                                </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="tutelle" class="col-sm-2 control-label">Tutelle:</label>
                                             <div class="col-sm-10">
-                                                <!--<input type="text" class="form-control" id="tutelle" placeholder="Saisir la tutelle">-->
-
                                                 <select id="tutelle"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
-                                                    <option value=""></option>
-                                                    <option value="min">Min sant&eacute;</option>
+
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="sigle" class="col-sm-2 control-label">Sigle:</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="sigle" placeholder="Saisir un sigle">
+                                            <div class="col-sm-10">
+                                                <select id="sigle"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
+                                                </select>
                                             </div>
                                         </div>
 
@@ -127,10 +120,7 @@
                                             <div class="col-sm-10">
                                                 <!--<input type="text" class="form-control" id="univ" placeholder="Saisir une universit&eacute;">-->
                                                 <select id="univ"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
-                                                    <option value=""></option>
-                                                    <option value="strasbourg">strasbourg</option>
-                                                    <option value="nice">Nice</option>
-                                                    <option value="orleans">Orleans</option>
+
                                                 </select>
                                             </div>
                                         </div>
@@ -139,10 +129,17 @@
                                             <label for="statut" class="col-sm-2 control-label">Statut:</label>
                                             <div class="col-sm-10">
                                                 <select id="statut"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="" >
-                                                    <option value=""></option>
-                                                    <option value="pr">priv&eacute;</option>
-                                                    <option value="pu">public</option>
-                                                    <option value="cote">Contrat</option>
+
+                                                </select>
+                                                <!--<input type="text" class="form-control" id="statut" placeholder="Saisir un statut">-->
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="type" class="col-sm-2 control-label">Type:</label>
+                                            <div class="col-sm-10">
+                                                <select id="type"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="" >
+
                                                 </select>
                                                 <!--<input type="text" class="form-control" id="statut" placeholder="Saisir un statut">-->
                                             </div>
@@ -236,18 +233,85 @@
 
         });
 
-        $.getJSON( "/region", function(data ) {
+        $("#type").select2({
+            placeholder: "Choisir un type",
+            language: "fr"
+
+        });
+
+        $("#academie").select2({
+            placeholder: "Choisir une académie",
+            language: "fr"
+
+        });
+
+        $("#sigle").select2({
+            placeholder: "Choisir un sigle",
+            language: "fr"
+
+        });
+
+        $.getJSON( "/controller/region", function(data ) {
             var items = [];
            $('#region option').remove();
-           $('#region').append('<option value="test"></option>');
             $.each( data, function( key, val ) {
-                //console.log(val.name);
                 $('#region').append('<option value="'+val.name+'">'+val.name+'</option>');
-                //console.log('<option value="'+val.name+'">'+val.name+'</option>');
             });
-
-
             $('#region').select2().trigger('change');
+        });
+
+        $.getJSON( "/controller/academie", function(data ) {
+            var items = [];
+            $('#academie option').remove();
+            $.each( data, function( key, val ) {
+                $('#academie').append('<option value="'+val.name+'">'+val.name+'</option>');
+            });
+            $('#academie').select2().trigger('change');
+        });
+
+        $.getJSON( "/controller/tutelle", function(data ) {
+            var items = [];
+            $('#tutelle option').remove();
+            $.each( data, function( key, val ) {
+                $('#tutelle').append('<option value="'+val.name+'">'+val.name+'</option>');
+            });
+            $('#tutelle').select2().trigger('change');
+        });
+
+        $.getJSON( "/controller/sigle", function(data ) {
+            var items = [];
+            $('#sigle option').remove();
+            $.each( data, function( key, val ) {
+                $('#sigle').append('<option value="'+val.name+'">'+val.name+'</option>');
+            });
+            $('#sigle').select2().trigger('change');
+        });
+
+        $.getJSON( "/controller/universite", function(data ) {
+            var items = [];
+            $('#univ option').remove();
+            $.each( data, function( key, val ) {
+                $('#univ').append('<option value="'+val.name+'">'+val.name+'</option>');
+            });
+            $('#univ').select2().trigger('change');
+        });
+
+        $.getJSON( "/controller/statut", function(data ) {
+            var items = [];
+            $('#statut option').remove();
+            $.each( data, function( key, val ) {
+                $('#statut').append('<option value="'+val.name+'">'+val.name+'</option>');
+            });
+            $('#statut').select2().trigger('change');
+        });
+
+        $.getJSON( "/controller/type", function(data ) {
+            var items = [];
+            //$('#type option').remove();
+            $.each( data, function( key, val ) {
+                $('#type').append('<option value="'+val.name+'">'+val.name+'</option>');
+            });
+            $('#type').select2().trigger('change');
         });
     });
 </script>
