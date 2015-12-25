@@ -3,13 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="55466780-49ab-4008-97f1-85c09f948e50" name="Default" comment="module recherche finir manque plus que des tests de hauts de niveau et gerer les bugs">
       <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/bd/functx-1.0-doc-2007-01.xq" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/stylesheets/magicsuggest-min.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/public/javascripts/magicsuggest-min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/views/accueil.ejs" afterPath="$PROJECT_DIR$/views/accueil.ejs" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/bd/adef.xq" afterPath="$PROJECT_DIR$/bd/adef.xq" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/admin_tools.js" afterPath="$PROJECT_DIR$/routes/admin_tools.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/routes/tools.js" afterPath="$PROJECT_DIR$/routes/tools.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="adef.iws" />
@@ -84,7 +77,7 @@
       <file leaf-file-name="adef.xq" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/bd/adef.xq">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.90529245" vertical-offset="2378" max-vertical-offset="2805">
+            <state vertical-scroll-proportion="0.7158774" vertical-offset="2446" max-vertical-offset="2805">
               <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
               <folding />
             </state>
@@ -784,7 +777,7 @@
       <workItem from="1450962069324" duration="3471000" />
       <workItem from="1450965995041" duration="639000" />
       <workItem from="1450967074866" duration="12506000" />
-      <workItem from="1450983743883" duration="35985000" />
+      <workItem from="1450983743883" duration="36112000" />
     </task>
     <task id="LOCAL-00001" summary="récupération des régions dans la base de données basex u">
       <created>1450736485826</created>
@@ -798,11 +791,15 @@
       <created>1450786358973</created>
       <updated>1450786358973</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="module recherche finir manque plus que des tests de hauts de niveau et gerer les bugs">
+      <created>1451066643855</created>
+      <updated>1451066643855</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="131370000" />
+    <option name="totallyTimeSpent" value="131497000" />
   </component>
   <component name="TodoView" selected-index="0">
     <todo-panel id="selected-file">
@@ -841,6 +838,7 @@
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="IDEtalk" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32807016" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32982457" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32982457" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -851,7 +849,6 @@
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32982457" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
@@ -1296,7 +1293,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/bd/adef.xq">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.90529245" vertical-offset="2378" max-vertical-offset="2805">
+        <state vertical-scroll-proportion="0.7158774" vertical-offset="2446" max-vertical-offset="2805">
           <caret line="159" column="0" selection-start-line="159" selection-start-column="0" selection-end-line="159" selection-end-column="0" />
           <folding />
         </state>
