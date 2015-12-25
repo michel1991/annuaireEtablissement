@@ -1,5 +1,6 @@
 xquery version "3.0" encoding "utf-8";
 module namespace adef = 'http://adef/miage2';
+import module namespace functx = 'http://www.functx.com';
 
 declare function adef:liste_region(){
 
@@ -53,6 +54,15 @@ declare function adef:liste_typesEtab()
     order by $type
     return <li>{$type}</li>
 
+};
+
+declare function adef:beforeResearch($uai, $region)
+{
+    for $etab in db:open('etablissement_superieur')//etablissement
+    where functx:is-value-in-sequence($etab/uai,(uai)) or
+            functx:is-value-in-sequence($etab/region,(region))
+
+    return $etab
 };
 
 declare function adef:recherche($nom, $region,
@@ -114,6 +124,14 @@ declare
 %output:method("xhtml")
 %rest:GET function adef:execute_typesEtab() {
     adef:liste_typesEtab()
+};
+
+declare
+%rest:path("expandable")
+%output:method("xhtml")
+%rest:query-param("requete", "{$requete}")
+%rest:GET function adef:execute_expandable($requete as xs:string) {
+    xquery:eval($requete)
 };
 
 declare

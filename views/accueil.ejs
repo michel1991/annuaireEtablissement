@@ -13,6 +13,7 @@
     <link href="/stylesheets/bootstrap.min.css" rel="stylesheet">
     <link href="/stylesheets/style.css" rel="stylesheet">
     <link href="/stylesheets/select2.min.css" rel="stylesheet">
+    <link href="/stylesheets/magicsuggest-min.css" rel="stylesheet">
 
 </head>
 <body>
@@ -44,115 +45,124 @@
                         <div class="tab-content">
                             <div class="tab-pane active" id="panel-recherche"><!--div contenant tous les elements-->
                                 <div class="row well">
-                                    <div class="col-lg-4 form-horizontal">
-                                        <div class="form-group">
-                                            <label for="uai" class="col-sm-2 control-label">UAI:</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="uai" placeholder="Saisir UAI">
-                                            </div>
-                                        </div>
+                                    <div class="col-lg-12">
 
-                                        <div class="form-group">
-                                            <label for="nomE" class="col-sm-2 control-label">Nom:</label>
-                                            <div class="col-sm-8">
-                                                <input type="text" class="form-control" id="nomE" placeholder="Saisir un nom d'&eacute;tablissement">
-                                                <!--<select id="nomE" ctabindex="-1" aria-hidden="true" style="width: 78%" >
-                                                    <option value=""></option>
-                                                    <option value="albert">Albert Fabron</option>
-                                                    <option value="var">Versaille</option>
-                                                    <option value="peau">De la peau</option>
-                                                </select>-->
-                                            </div>
-                                        </div>
+                                      <table class="table" id="myTable1">
+                                          <tr>
+                                              <td width="5%">
+                                                  <label for="nomE" class="control-label">Nom:</label>
+                                              </td>
+                                              <td>
 
-                                        <div class="form-group">
-                                            <label for="region" class="col-sm-2 control-label">R&eacute;gion:</label>
-                                            <div class="col-sm-10">
-                                                <select id="region"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
-                                                </select>
-                                                <!--<input type="text" class="form-control"  placeholder="Saisir une r&eacute;gion">-->
-                                            </div>
-                                        </div>
+                                                 <input type="text" class="form-control" name="etablissements[]" id="nomE">
+                                              </td>
+                                          </tr>
+                                      </table>
+                                       <div class="row">
+                                           <div class="col-lg-4 form-horizontal">
+                                               <div class="form-group">
+                                                   <label for="uai" class="col-sm-2 control-label">UAI:</label>
+                                                   <div class="col-sm-8">
+                                                       <input type="text" class="form-control" id="uai">
+                                                   </div>
+                                               </div>
 
+
+                                               <div class="form-group">
+                                                   <label for="region" class="col-sm-2 control-label">R&eacute;gion:</label>
+                                                   <div class="col-sm-10">
+                                                       <select id="region"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
+                                                       </select>
+                                                       <!--<input type="text" class="form-control"  placeholder="Saisir une r&eacute;gion">-->
+                                                   </div>
+                                               </div>
+
+                                           </div>
+
+                                           <div class="col-lg-4 form-horizontal">
+
+                                               <div class="form-group">
+                                                   <label for="academie" class="col-sm-2 control-label">Academie:</label>
+                                                   <div class="col-sm-10">
+                                                       <select id="academie"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
+                                                       </select>
+                                                   </div>
+                                               </div>
+
+                                               <div class="form-group">
+                                                   <label for="tutelle" class="col-sm-2 control-label">Tutelle:</label>
+                                                   <div class="col-sm-10">
+                                                       <select id="tutelle"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
+
+                                                       </select>
+                                                   </div>
+                                               </div>
+
+                                               <div class="form-group">
+                                                   <label for="sigle" class="col-sm-2 control-label">Sigle:</label>
+                                                   <div class="col-sm-10">
+                                                       <select id="sigle"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
+                                                       </select>
+                                                   </div>
+                                               </div>
+
+                                               <div class="form-group">
+                                                   <label class="col-sm-4 control-label"></label>
+                                                   <div class="col-sm-8">
+                                                       <a class="btn btn btn-success" id="look">Rechercher</a>
+                                                   </div>
+
+
+                                               </div>
+
+                                           </div>
+
+                                           <div class="col-lg-4 form-horizontal">
+                                               <div class="form-group">
+                                                   <label for="univ" class="col-sm-2 control-label">Universit&eacute;:</label>
+                                                   <div class="col-sm-10">
+                                                       <!--<input type="text" class="form-control" id="univ" placeholder="Saisir une universit&eacute;">-->
+                                                       <select id="univ"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
+
+                                                       </select>
+                                                   </div>
+                                               </div>
+
+                                               <div class="form-group">
+                                                   <label for="statut" class="col-sm-2 control-label">Statut:</label>
+                                                   <div class="col-sm-10">
+                                                       <select id="statut"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="" >
+
+                                                       </select>
+                                                       <!--<input type="text" class="form-control" id="statut" placeholder="Saisir un statut">-->
+                                                   </div>
+                                               </div>
+
+                                               <div class="form-group">
+                                                   <label for="type" class="col-sm-2 control-label">Type:</label>
+                                                   <div class="col-sm-10">
+                                                       <select id="type"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="" >
+
+                                                       </select>
+                                                       <!--<input type="text" class="form-control" id="statut" placeholder="Saisir un statut">-->
+                                                   </div>
+                                               </div>
+
+                                               <div class="form-group hidden">
+                                                   <label for="myJocker" class="col-sm-2 control-label"></label>
+                                                   <div class="col-sm-8">
+                                                       <input type="text" class="form-control" id="myJocker" placeholder="do the job">
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </div>
                                     </div>
 
-                                    <div class="col-lg-4 form-horizontal">
 
-                                        <div class="form-group">
-                                            <label for="academie" class="col-sm-2 control-label">Academie:</label>
-                                            <div class="col-sm-10">
-                                                <select id="academie"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="tutelle" class="col-sm-2 control-label">Tutelle:</label>
-                                            <div class="col-sm-10">
-                                                <select id="tutelle"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="sigle" class="col-sm-2 control-label">Sigle:</label>
-                                            <div class="col-sm-10">
-                                                <select id="sigle"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label class="col-sm-4 control-label"></label>
-                                            <div class="col-sm-8">
-                                                <a class="btn btn btn-success" >Rechercher</a>
-                                            </div>
-
-
-                                        </div>
-
-                                    </div>
-
-                                    <div class="col-lg-4 form-horizontal">
-                                        <div class="form-group">
-                                            <label for="univ" class="col-sm-2 control-label">Universit&eacute;:</label>
-                                            <div class="col-sm-10">
-                                                <!--<input type="text" class="form-control" id="univ" placeholder="Saisir une universit&eacute;">-->
-                                                <select id="univ"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="">
-
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="statut" class="col-sm-2 control-label">Statut:</label>
-                                            <div class="col-sm-10">
-                                                <select id="statut"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="" >
-
-                                                </select>
-                                                <!--<input type="text" class="form-control" id="statut" placeholder="Saisir un statut">-->
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="type" class="col-sm-2 control-label">Type:</label>
-                                            <div class="col-sm-10">
-                                                <select id="type"  tabindex="-1" aria-hidden="true" style="width: 78%" multiple="" >
-
-                                                </select>
-                                                <!--<input type="text" class="form-control" id="statut" placeholder="Saisir un statut">-->
-                                            </div>
-                                        </div>
-                                    </div>
 
                                 </div><!--fin panneau de recherche-->
-                                <!--<div class="row">
-                                    <div class="col-lg-2 col-lg-offset-5">
-                                        <a class="btn btn btn-success" >Rechercher</a>
-                                    </div>
 
-                                </div>-->
+
                                 <div class="row">
                                     <div class="col-lg-12">
                                         <ul class="nav nav-pills">
@@ -199,21 +209,102 @@
 <script src="/javascripts/bootstrap.min.js"></script>
 <script src="/javascripts/scripts.js"></script>
 <script src="/javascripts/select2.full.min.js"></script>
+<script src="/javascripts/magicsuggest-min.js"></script>
 
 <script>
-    $(function(){
+    $(function()
+    {
+        $("#myTable1").css({'border-top': '0px solid #ddd'});//pour enlever la ligne en haut du tableau utiliser ceci cette propriété
+
+        var uai="";
+        var nomEtablissement="";
+        var conditionRegion='';
+        var conditionAcademie='';
+        var conditionTutelle='';
+        var conditionSigle='';
+        var conditionUniversite='';
+        var conditionStatut='';
+        var conditionType='';
+        var conditionUAI='';
+        var urlT='';
+
+        var optionRegions = [];
+        var optionAcademie =[];
+        var optionTutelle =[];
+        var optionSigle =[];
+        var optionUniversite =[];
+        var optionStatut =[];
+        var optionType =[];
+        var optionUAI =[];
+
         $("#region").select2({
             placeholder: "Saisir une région",
             language: "fr"
 
         });
 
-        /*$("#nomE").select2({
-         placeholder: "Saisir un nom d'établissement",
-         language: "fr",
-         allowClear: true
+        var ms = $('#nomE').magicSuggest({
+            placeholder: "Etablissement",
+            maxSelection:10,
+            noSuggestionText:'aucun établissement',
+            sortOrder: 'name'
+            //valueField: 'name'
+        });
 
-         });*/
+        var $uaiMs = $('#uai').magicSuggest({
+            placeholder: "UAI",
+            maxSelection:10,
+            noSuggestionText:'aucun uai',
+            sortOrder: 'name'
+        });
+
+        function modifyData(data)
+        {
+            var smallArray =[];
+            for(var i =0; i<data.length; i++)
+            {
+                smallArray.push({
+                    id:i,
+                    name:data[i].id
+                });
+            }
+            //console.log("array Modify "+ smallArray);
+            return smallArray;
+        }
+
+        $(ms).on('triggerclick', function(c){
+            //alert('now open for business.');
+            manager();
+            var suggest = this;
+
+            if($("#myJocker").val()!='import module namespace functx = "http://www.functx.com";  functx:distinct-nodes(db:open("etablissement_superieur")//etablissement)')//
+            {
+                $.ajax({
+                    url: "/controller/expandEtablissement",
+                    dataType:'json',
+                    data:{
+
+                        jocker:$("#myJocker").val()
+                    },
+                    success:function(data)
+                    {
+                        //console.log(data);
+                        if(data.length>0)
+                        {
+                            suggest.setData(data);
+                            var dataMin = modifyData(data);
+                            $uaiMs.setData(dataMin);
+                        }else{
+                            suggest.setData([]);
+                            $uaiMs.setData([]);
+                        }
+
+                    }
+                });
+            }
+
+        });
+
 
         $("#statut").select2({
             placeholder: "Saisir un statut",
@@ -313,6 +404,205 @@
             });
             $('#type').select2().trigger('change');
         });
+
+        /*JUST FOR EVENT BECAUSE I WOULID LIKE TO FORM MY REQUEST IN BASEX WITH OPTION SELECT BY USER*/
+        $("#region").on("change", function ()
+        {
+        });
+
+        $('#look').click(function(){
+            manager();
+        });
+
+        function manager()
+        {
+            optionRegions = $("#region").val();
+            optionAcademie = $("#academie").val();
+            optionTutelle= $("#tutelle").val();
+            optionSigle= $("#sigle").val();
+
+            optionUniversite= $("#univ").val();
+            optionStatut= $("#statut").val();
+            optionType= $("#type").val();
+            //before but now niet uai=$("#uai").val();
+            console.log($uaiMs.getSelection());
+           // var tabSelectionUai = [];//$uaiMs.getSelection();
+            var tabSelectionUai = $uaiMs.getSelection();
+
+            var tabCondition=[];
+            urlT="";
+
+
+            conditionUAI="";
+            if(tabSelectionUai.length>0)// uai.length
+            {
+                conditionUAI='UAI=(';
+                for(var i =0; i<tabSelectionUai.length; i++)
+                {
+                    if(i+1!=tabSelectionUai.length)
+                    {
+                        conditionUAI+='"'+(tabSelectionUai[i].name).toUpperCase()+'",';
+                    }else{
+                        conditionUAI+='"'+(tabSelectionUai[i].name).toUpperCase()+'"';
+                    }
+                }
+                conditionUAI+=')';
+                //console.log("uai " + conditionUAI);
+                // before conditionUAI='UAI=('+uai.toUpperCase()+')';
+                tabCondition.push(conditionUAI);
+            }
+
+
+            //console.log(typeof $("#uai").val() + " valeur");
+            conditionRegion="";
+            if(optionRegions!==null)
+            {
+                conditionRegion="region=(";
+                for(var i =0; i<optionRegions.length; i++)
+                {
+                    if(i+1!=optionRegions.length)
+                    {
+                        conditionRegion+='"'+optionRegions[i]+'",'
+                    }else{
+                        conditionRegion+='"'+optionRegions[i]+'"'
+                    }
+                }
+                conditionRegion+=')';
+               // console.log(conditionRegion);
+                tabCondition.push(conditionRegion);
+            }
+
+            conditionAcademie="";
+            if(optionAcademie!==null)
+            {
+                conditionAcademie="academie=(";
+                for(var i =0; i<optionAcademie.length; i++)
+                {
+                    if(i+1!=optionAcademie.length)
+                    {
+                        conditionAcademie+='"'+optionAcademie[i]+'",'
+                    }else{
+                        conditionAcademie+='"'+optionAcademie[i]+'"'
+                    }
+                }
+                conditionAcademie+=')';
+                //console.log(conditionAcademie);
+                tabCondition.push(conditionAcademie);
+            }
+
+
+            conditionTutelle="";
+            if(optionTutelle!==null)
+            {
+                conditionTutelle="tutelle=(";
+                for(var i =0; i<optionTutelle.length; i++)
+                {
+                    if(i+1!=optionTutelle.length)
+                    {
+                        conditionTutelle+='"'+optionTutelle[i]+'",'
+                    }else{
+                        conditionTutelle+='"'+optionTutelle[i]+'"'
+                    }
+                }
+                conditionTutelle+=')';
+                tabCondition.push(conditionTutelle);
+               // console.log(conditionTutelle);
+            }
+
+            conditionSigle="";
+            if(optionSigle!==null)
+            {
+                conditionSigle="sigle=(";
+                for(var i =0; i<optionSigle.length; i++)
+                {
+                    if(i+1!=optionSigle.length)
+                    {
+                        conditionSigle+='"'+optionSigle[i]+'",'
+                    }else{
+                        conditionSigle+='"'+optionSigle[i]+'"'
+                    }
+                }
+                conditionSigle+=')';
+                //console.log(conditionSigle);
+                tabCondition.push(conditionSigle);
+            }
+
+
+            conditionUniversite="";
+            if(optionUniversite!==null)
+            {
+                conditionUniversite="universite=(";
+                for(var i =0; i<optionUniversite.length; i++)
+                {
+                    if(i+1!=optionUniversite.length)
+                    {
+                        conditionUniversite+='"'+optionUniversite[i]+'",'
+                    }else{
+                        conditionUniversite+='"'+optionUniversite[i]+'"'
+                    }
+                }
+                conditionUniversite+=')';
+                //console.log(conditionUniversite);
+                tabCondition.push(conditionUniversite);
+            }
+
+            conditionStatut="";
+            if(optionStatut!==null)
+            {
+                conditionStatut="statut=(";
+                for(var i =0; i<optionStatut.length; i++)
+                {
+                    if(i+1!=optionStatut.length)
+                    {
+                        conditionStatut+='"'+optionStatut[i]+'",'
+                    }else{
+                        conditionStatut+='"'+optionStatut[i]+'"'
+                    }
+                }
+                conditionStatut+=')';
+                //console.log(conditionStatut);
+                tabCondition.push(conditionStatut);
+            }
+
+
+            conditionType="";
+            if(optionType!==null)
+            {
+                conditionType="type=(";
+                for(var i =0; i<optionType.length; i++)
+                {
+                    if(i+1!=optionType.length)
+                    {
+                        conditionType+='"'+optionType[i]+'",'
+                    }else{
+                        conditionType+='"'+optionType[i]+'"'
+                    }
+                }
+                conditionType+=')';
+                tabCondition.push(conditionType);
+                //console.log(conditionType);
+            }
+
+            if(tabCondition.length>0)
+            {
+                urlT+='import module namespace functx = "http://www.functx.com";  functx:distinct-nodes(db:open("etablissement_superieur")//etablissement[';
+                for(var i =0; i<tabCondition.length; i++)
+                {
+                    if(i+1!=tabCondition.length)
+                    {
+                        urlT+=tabCondition[i]+" and ";
+                    }else{
+                        urlT+=tabCondition[i];
+                    }
+                }
+                urlT+="])"
+            }else{
+                urlT+='import module namespace functx = "http://www.functx.com";  functx:distinct-nodes(db:open("etablissement_superieur")//etablissement)';
+            }
+
+            $("#myJocker").val(urlT);
+            //console.log('url ' + $("#myJocker").val());
+        }
     });
 </script>
 </body>

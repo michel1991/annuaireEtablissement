@@ -9,3 +9,5 @@ dans le dossier webapp de baseX pour cela vous devrez charger la bd dans baseX e
                    <----------------reponse                                <--------------  reponse 
 -une fois les consignes respecter vous pouvez lancez l'appli à:http://localhost:30001/adef  
 et oups consulter
+-importer le module functx-1.0-doc dans baseX main menu Options package install et vous indiquez la localisation de ce fichier
+il sera importer dans le repertoire repo de baseX

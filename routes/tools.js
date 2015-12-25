@@ -2,6 +2,7 @@
  * Created by michel on 21/12/2015.
  */
 var request = require('request');
+var http = require('http');
 module.exports =
 {
     remote_acces_region:'http://localhost:8984/region',
@@ -11,6 +12,7 @@ module.exports =
     remote_access_universite:'http://localhost:8984/universite',
     remote_access_statut:'http://localhost:8984/statut',
     remote_access_type:'http://localhost:8984/type',
+    remote_access_before_event:'http://localhost:8984/expandable?requete=',
     getRegion: function (res)
     {
         var arrayRegion = [];
@@ -145,6 +147,139 @@ module.exports =
                 res.json(arrayType);
             }
         });
+    },
+    expandable: function(req, res, myUri)
+    {
+        var myJocker = req.query.jocker;
+        request(myUri,function (error, response, body)
+            {
+                //console.log(response.statusCode);
+                var arrayEtablissement =[];
+                if (!error && response.statusCode == 200)
+                {
+
+                    console.log(body);
+                    var myResponse = body.split('</etablissement>');
+                    //console.log("size " +myResponse.length);
+                    for(var i =0; i<myResponse.length; i++)
+                    {
+                        if((myResponse[i]).length>0)  //le split peut ne pas marcher
+                        {
+                            var stringEtablissement = myResponse[i].replace('<etablissement>', '');
+                            var insideEtab =stringEtablissement.split("</");
+
+                            var valueUAI="", valueType="", valueNom="", valueSigle="", valueStatut="", valueTutelle="",
+                                valueUniversite="", valueAdresse="", valueCp="", valueCommune="", valueDepart="",
+                                valueAcademie="", valueRegion="", valueLongitude="", valueLatitude="", valueLien="";
+
+                            for(var j =0; j<insideEtab.length; j++)
+                            {
+                                //console.log(j +" " +insideEtab[j]);
+                                switch (j)
+                                {
+                                    case 0:
+                                        valueUAI=(insideEtab[j]).replace("<UAI>", "").replace("UAI>", "").replace("<UAI", "").trim();
+                                        break;
+                                    case 1:
+                                        valueType=(insideEtab[j]).replace("<type>", "").replace("type>", "").replace("UAI>", "").replace("<type", "").trim();
+                                        break;
+                                    case 2:
+                                        //replace 3 = ancien
+                                        valueNom=(insideEtab[j]).replace("<nom>", "").replace("nom>", "").replace("type>", "").replace("<nom", "").trim();
+                                        break;
+                                    case 3:
+                                     valueSigle=(insideEtab[j]).replace("<sigle>", "").replace("sigle>", "").replace("nom>", "").replace("<type", "").trim();
+                                     break;
+                                     case 4:
+                                     valueStatut=(insideEtab[j]).replace("<statut>", "").replace("statut>", "").replace("sigle>", "").replace("<statut", "").trim();
+                                     break;
+                                     case 5:
+                                     valueTutelle=(insideEtab[j]).replace("<tutelle>", "").replace("tutelle>", "").replace("statut>", "").replace("<tutelle", "").trim();
+                                     break
+                                     case 6:
+                                     valueUniversite=(insideEtab[j]).replace("<universite>", "").replace("universite>", "").replace("tutelle>", "").replace("<universite", "").trim();
+
+                                     break;
+                                     case 7:
+                                     valueAdresse=(insideEtab[j]).replace("<adresse>", "").replace("adresse>", "").replace("universite>", "").replace("<adresse", "").trim();
+                                     break;
+                                     case 8:
+                                     valueCp=(insideEtab[j]).replace("<cp>", "").replace("cp>", "").replace("adresse>", "").replace("<cp", "").trim();
+                                     break;
+                                     case 9:
+                                     valueCommune=(insideEtab[j]).replace("<commune>", "").replace("commune>", "").replace("cp>", "").replace("<commune", "").trim();
+                                     break;
+                                     case 10:
+                                     valueDepart=(insideEtab[j]).replace("<departement>", "").replace("departement>", "").replace("commune>", "").replace("<departement", "").trim();
+                                     break;
+                                     case 11:
+                                     valueAcademie=(insideEtab[j]).replace("<academie>", "").replace("academie>", "").replace("departement>", "").replace("<academie", "").trim();
+                                     break;
+                                     case 12:
+                                     valueRegion=(insideEtab[j]).replace("<region>", "").replace("region>", "").replace("academie>", "").replace("<region", "").trim();
+                                     break;
+                                     case 13:
+                                     valueLongitude=(insideEtab[j]).replace("<longitude_X>", "").replace("longitude_X>", "").replace("region>", "").replace("<longitude_X", "").trim();
+                                     break;
+                                     case 14:
+                                     valueLatitude=(insideEtab[j]).replace("<latitude_Y>", "").replace("latitude_Y>", "").replace("longitude_X>", "").replace("<latitude_Y", "").trim();
+                                     break;
+                                     case 15:
+                                     valueLien=(insideEtab[j]).replace("<lien>", "").replace("lien>", "").replace("latitude_Y>", "").replace("<lien", "").trim();
+                                     break;
+                                }
+                            }
+                            arrayEtablissement[i] = {
+
+                                id: valueUAI,
+                                typeEtab:valueType,
+                                name:valueNom,
+                                sigle:valueSigle,
+                                statutEtab:valueStatut,
+                                tutelle:valueTutelle,
+                                universite:valueUniversite,
+                                adresseEtab:valueAdresse,
+                                cp:valueCp,
+                                commune:valueCommune,
+                                academie:valueAcademie,
+                                region:valueRegion,
+                                longitude:valueLongitude,
+                                latitude:valueLatitude,
+                                lien:valueLien
+
+                            };
+                        }// fin du if split peut ne pas marcher
+
+                        /*arrayEtablissement[i] = {
+                            uai: valueUAI,
+                            typeEtab:valueType,
+                            nom:valueNom,
+                            sigle:valueSigle,
+                            statutEtab:valueStatut,
+                            tutelle:valueTutelle,
+                            universite:valueUniversite,
+                            adresseEtab:valueAdresse,
+                            cp:valueCp,
+                            commune:valueCommune,
+                            academie:valueAcademie,
+                            region:valueRegion,
+                            longitude:valueLongitude,
+                            latitude:valueLatitude,
+                            lien:valueLien
+                        };*/
+
+                    }
+
+                  //console.log(arrayEtablissement);
+                }//end status code 200
+
+                res.json(arrayEtablissement);
+            });
+
+        /*res.json({
+            "name":"coucou"
+        });*/
+
     }
 };
 
