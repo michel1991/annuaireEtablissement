@@ -11,3 +11,5 @@ dans le dossier webapp de baseX pour cela vous devrez charger la bd dans baseX e
 et oups consulter
 -importer le module functx-1.0-doc dans baseX main menu Options package install et vous indiquez la localisation de ce fichier
 il sera importer dans le repertoire repo de baseX
+- dernière remarque faudrait être derrière un réseau pour que l'application marche je ne sais pas pourquoi et j'ai pas encore fait des recherches à propos de cela
+- Reste des Taches: Affichages des établissements sur la carte, création des statistiques et exportation
