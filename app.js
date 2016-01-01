@@ -13,6 +13,8 @@ var accueil = require('./routes/router_accueil');
 var manager = require('./routes/admin_tools');
 var app = express();
 
+var PORT = 30001;
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -65,4 +67,4 @@ app.use(function(err, req, res, next) {
 
 
 module.exports = app;
-app.listen(30001);
+app.listen(PORT);
