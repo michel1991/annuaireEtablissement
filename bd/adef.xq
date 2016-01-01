@@ -68,7 +68,7 @@ declare function adef:beforeResearch($uai, $region)
 declare function adef:recherche($nom, $region,
         $departement, $universite, $tutelle){
     <resultat>{
-        for $etab in  db:open('etablissement_superieur')//etablissement
+        for $etab in  db:open('etablissement_superieur') //etablissement
         let $value:= lower-case(concat($nom, $region, $departement, $universite,  $tutelle))
         return
             if(contains((string(lower-case($etab))), $value))

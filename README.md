@@ -1,15 +1,42 @@
-# annuaireEtablissement
-projet exml miage1 
--projet destiné à la géolocalisation des établissments français 
--pour le lancer je vous mettre un fichier xq qui contient les requetes xq dans un dossier bd que vous placerez dans le 
-dans le dossier webapp de baseX pour cela vous devrez charger la bd dans baseX et l'appeler etablissement_superieur. Une fois cela fait pour devrez demarer le fichier basexhttp.bat qui se trouve dans le repertoire bin de l'installation de basex pour pourvoir écouter les requettes http venant de node js.
-- une fois cela fait vous devrez run le fichier app.js du projet qui lancera le serveur node pour ecouter les requetes venant du client nous utiliserons le framework express de node qui facilite grandement la tâche. S'agit du port du serveur node j'ai mis 30001 et vous pouvez le changer il se trouve à la fin du fichier app.js.
-- voici une petite architecture du projet
- client(navigateur)----------------->requete vers le serveur node(Express) --------------> call http request in baseX server
-                   <----------------reponse                                <--------------  reponse 
--une fois les consignes respecter vous pouvez lancez l'appli à:http://localhost:30001/adef  
-et oups consulter
--importer le module functx-1.0-doc dans baseX main menu Options package install et vous indiquez la localisation de ce fichier
-il sera importer dans le repertoire repo de baseX
-- dernière remarque faudrait être derrière un réseau pour que l'application marche je ne sais pas pourquoi et j'ai pas encore fait des recherches à propos de cela
-- Reste des Taches: Affichages des établissements sur la carte, création des statistiques et exportation
+# Annuaire Etablissement : Projet EXML miage1
+
+## Introduction
+Projet destiné à la géolocalisation des établissments français
+
+## Petite architecture
+- Le _client_ envoie une requête (souvent en _AJAX_) au serveur _Node.js_.
+- Le serveur _Node.js_ fait suivre la requête au serveur _baseX_
+- Le serveur _baseX_ répond au serveur _Node.js_
+- Le serveur _Node.js_ formate la réponse de _baseX_ et la transmet au _client_
+- Le _client_ réalise un formatage léger et l'intègre dans son HTML dynamiquement
+
+## Démarrer l'application
+
+### Configurer BaseX
+
+- Télécharger _baseX_ qui est un logiciel _stand alone_ (sans installation)
+- Télécharger le fichier BDD XML contenant les établissements
+- Lancer la GUI de _baseX_ en lançant `./bin/basexgui` (ajouter `.bat` pour Windows)
+- Créer une base en important le fichier XML dans _baseX_ et nommer la *etablissement_superieur*
+- Installer le module __functx-1.0-doc__ présent dans le projet _git_
+- Pour activer les requêtes préconfigurées vous devez ajouter le fichier __adef.xq__ dans le dossier __webapp__ de _baseX_
+- _baseX_ est configuré, vous pouvez lancer le serveur en utilisant le script `./bin/basexhttp` (ajouter `.bat` pour Windows)
+
+### Lancer le serveur Node.js
+
+- Pour lancer le serveur _Node.js_ utiliser simplement `npm start`
+
+- Pour lancer le serveur en mode developpement utiliser __supervisor__ :
+  - Lorsque vous changez un élément du serveur _Node.js_, il doit être redémarré, __supervisor__ le redémarre automatiquement (gain de temps)
+  - Installer __supervisor__ : `npm install supervisor -g`
+  - Lancer l'application avec __supervisor__: `supervisor ./bin/www`
+
+- Lancer votre navigateur à l'URL http://localhost:30001/adef pour accéder à la page
+
+## To do
+
+- L'application ne fonctionne qu'en local, le client _localhost_ est hardcodé, il faudrait pouvoir le porter sur un serveur distant
+- Reste à faire :
+  - Affichage des établissements sur la carte (__Salwa__)
+  - Réalisation des statistiques et des graphiques (__Thais__)
+  - Réalisation des exports de statistiques (__Dragos__)
