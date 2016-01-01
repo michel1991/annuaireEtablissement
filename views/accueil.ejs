@@ -41,7 +41,7 @@
                                 <a href="#panel-recherche" data-toggle="tab">Recherche</a>
                             </li>
                             <li>
-                                <a href="#panel-373365" data-toggle="tab">Section 2</a>
+                                <a href="#panel-373365" data-toggle="tab">Statistiques</a>
                             </li>
                         </ul>
                         <div class="tab-content">
@@ -112,10 +112,16 @@
                                                    <label class="col-sm-4 control-label"></label>
                                                    <div class="col-sm-8">
                                                        <a class="btn btn btn-success" id="look">Rechercher</a>
+
                                                    </div>
 
-
                                                </div>
+
+                                              <div class="form-group">
+                                                  <div class="col-sm-8 col-lg-offset-3">
+                                                      <img src="/images/ajax-loader.gif" id="loadingI" style="display:none" />
+                                                  </div>
+                                              </div>
 
                                            </div>
 
@@ -183,12 +189,15 @@
                                                         <table id="tableEtablissements">
                                                             <thead>
                                                                 <tr>
+                                                                 <th data-field="state" data-checkbox="true"></th>
                                                                 <th data-halign="center" data-field="uai" data-width="5%">UAI</th>
                                                                 <th data-halign="center" data-align="center"  data-field="name" data-sortable="true">NOM</th>
                                                                 <th data-halign="center" data-align="center" data-field="type">TYPE</th>
                                                                 <th data-halign="center" data-align="center" data-field="sigle" data-width="5%">SIGLE</th>
                                                                 <th data-halign="center" data-align="center" data-field="tutelle">TUTELLE</th>
                                                                 <th data-halign="center" data-align="center" data-field="adresse" data-width="20%">ADRESSE</th>
+                                                                <th data-halign="center" data-align="center" data-field="longitude" data-width="5%" class="hidden">Long</th>
+                                                                <th data-halign="center" data-align="center" data-field="latitude" data-width="5%" class="hidden">Lat</th>
                                                                 </tr>
                                                             </thead>
 
@@ -240,7 +249,11 @@
 <script>
     $(function()
     {
+
         $("#myTable1").css({'border-top': '0px solid #ddd'});//pour enlever la ligne en haut du tableau utiliser ceci cette propriété
+         /*
+             CONSTRUCTION DU TABLEAU AFIN DE RESERVOIR LES DONNEES DE LA RECHERCHE
+         */
         var $tableB=$('#tableEtablissements').bootstrapTable({
             pagination:true,
             search:true,
@@ -264,6 +277,9 @@
 
         });
 
+        /*
+          COMPOSANT POUR LES DONNEES DES ETABLISSEMENTS
+        */
         var $ms = $('#nomE').magicSuggest({
             placeholder: "Etablissement",
             maxSelection:10,
@@ -271,8 +287,20 @@
             sortOrder: 'name'
         });
 
-
-
+        /*
+           EVENEMENT SUR LE TAB CARTE ET RECUPERATION DE TOUS LES ETABLISSEMENTS COCHES
+        */
+        $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+            var target = $(e.target).attr("href"); // activated tab
+           if(target=='#panel-carte')
+           {
+               var dataSelected = $tableB.bootstrapTable('getAllSelections');
+               console.log(dataSelected);
+           }
+        });
+        /*
+           MAGIC SUGGEST POUR LE UAI ETABLISSEMENT
+        */
         var $uaiMs = $('#uai').magicSuggest({
             placeholder: "UAI",
             maxSelection:10,
@@ -281,7 +309,9 @@
         });
 
 
-
+         /*
+           trigger sur le nom des etablissements
+         */
         $($ms).on('triggerclick', function(c)
         {
             manager(true);
@@ -308,7 +338,6 @@
                             suggest.setData([]);
                             $uaiMs.setData([]);
                         }
-
                     }
                 });
             }
@@ -420,9 +449,13 @@
         {
         });
 
+        /*
+             CLICK SUR LE BOUTON RECHERCHE EVENT
+         */
         $('#look').click(function(){
             manager(false);
-            console.log("recherche");
+            //console.log("recherche");
+            $('#loadingI').show();
             $.ajax({
                 url: "/controller/expandEtablissement",
                 dataType:'json',
@@ -434,10 +467,14 @@
                 {
                     //console.log("reponse look"+ data);
                     managerEtablissement(data);
+                   $('#loadingI').hide();
                 }
             });
         });
 
+         /*
+            fonction permettant de faire les recherches
+          */
         function manager(whichJob)
         {
             optionRegions = $("#region").val();
@@ -661,7 +698,7 @@
 
 
             $("#myJocker").val(urlT);
-            console.log('url ' + $("#myJocker").val());
+           // console.log('url ' + $("#myJocker").val());
         }
 
         function managerEtablissement(dataEtab)
@@ -676,12 +713,15 @@
                             index: i+1,
                             row:
                             {
+                                state:false,
                                 uai:dataEtab[i].id,
                                 name:dataEtab[i].name,
                                 type:dataEtab[i].typeEtab,
                                 sigle:dataEtab[i].sigle,
                                 tutelle:dataEtab[i].tutelle,
-                                adresse:dataEtab[i].adresseEtab
+                                adresse:dataEtab[i].adresseEtab,
+                                longitude:parseFloat(dataEtab[i].longitude),
+                                latitude:parseFloat(dataEtab[i].latitude)
                             }
                         }
                 );

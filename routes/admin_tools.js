@@ -13,11 +13,17 @@ router.get('/region', function(req, res, next)
     tools.getRegion(res);
 });
 
+ /*
+    url pour recuperer les tutelles
+ */
 router.get('/tutelle', function(req, res, next)
 {
     tools.getTutelle(res);
 });
 
+/*
+   url pour récupérer les academies
+ */
 router.get('/academie', function(req, res, next)
 {
     tools.getAcademie(res);
