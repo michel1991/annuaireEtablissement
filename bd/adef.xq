@@ -77,6 +77,24 @@ declare function adef:recherche($nom, $region,
     }</resultat>
 };
 
+declare function adef:nb_Etabl_Region()
+{
+    <result>{
+      for $etabl in db:open('etablissement_superieur')//etablissement
+      let $region := $etabl//region
+      group by $region
+      order by count($etabl) descending
+      return <item>{$region}/{count($etabl)}</item>
+    }</result>
+};
+
+declare
+%rest:path("nbEtablRegion")
+%output:method("xhtml")
+%rest:GET function adef:execute_nb_Etabl_Region() {
+    adef:nb_Etabl_Region()
+};
+
 declare
 %rest:path("region")
 %output:method("xhtml")

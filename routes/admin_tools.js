@@ -51,10 +51,15 @@ router.get('/type', function(req, res, next)
 
 router.get('/expandEtablissement', function(req, res, next)
 {
-    var myUri =req.originalUrl.replace("/controller/expandEtablissement?jocker=", "http://localhost:8984/expandable?requete=");
-    console.log("uri " +myUri);
+    var myUri = req.originalUrl.replace("/controller/expandEtablissement?jocker=", "http://localhost:8984/expandable?requete=");
+    console.log("uri " + myUri);
 
     tools.expandable(req, res, myUri);
+});
+
+router.get('/etablissementParRegion', function(req, res, next)
+{
+    tools.getEtablissementParRegion(res);
 });
 
 module.exports = router;

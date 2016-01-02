@@ -16,7 +16,6 @@
     <link href="/stylesheets/magicsuggest-min.css" rel="stylesheet">
     <link href="/stylesheets/bootstrap-table.min.css" rel="stylesheet">
 
-
 </head>
 <body>
 
@@ -52,10 +51,9 @@
                                       <table class="table" id="myTable1">
                                           <tr>
                                               <td width="5%">
-                                                  <label for="nomE" class="control-label">Nom:</label>
+                                                <label for="nomE" class="control-label">Nom:</label>
                                               </td>
                                               <td>
-
                                                  <input type="text" class="form-control" name="etablissements[]" id="nomE">
                                               </td>
                                           </tr>
@@ -117,7 +115,7 @@
 
                                                </div>
 
-                                              <div class="form-group">
+                                               <div class="form-group">
                                                   <div class="col-sm-8 col-lg-offset-3">
                                                       <img src="/images/ajax-loader.gif" id="loadingI" style="display:none" />
                                                   </div>
@@ -227,6 +225,17 @@
 
                             <div class="tab-pane" id="panel-373365">
                                 <p>statistics</p>
+                                <div class="row well">
+                                  <div class="col-lg-4 form-horizontal">
+                                    <div class="form-group">
+                                        <div class="col-sm-10">
+                                            <button type="button" class="btn btn-default" id="etablParRegion">Nombre d'établissement par région</button>
+                                        </div>
+                                    </div>
+                                  </div>
+                                </div>
+                                <svg class="chart">
+                                </svg>
                             </div>
                         </div>
                     </div>
@@ -236,14 +245,18 @@
     </div>
 </div>
 
-<script src="/javascripts/jquery.min.js"></script>
-<script src="/javascripts/bootstrap.min.js"></script>
-<script src="/javascripts/scripts.js"></script>
-<script src="/javascripts/select2.full.min.js"></script>
-<script src="/javascripts/magicsuggest-min.js"></script>
-<script src="/javascripts/bootstrap-table.min.js"></script>
-<script src="/javascripts/bootstrap-table-locale-all.min.js"></script>
+<script src="/lib/jquery.min.js"></script>
+<script src="/lib/bootstrap.min.js"></script>
+<script src="/lib/select2.full.min.js"></script>
+<script src="/lib/magicsuggest-min.js"></script>
+<script src="/lib/bootstrap-table.min.js"></script>
+<script src="/lib/bootstrap-table-locale-all.min.js"></script>
+<script src="/lib/d3.min.js"></script>
+
 <script src="https://maps.googleapis.com/maps/api/js"></script>
+
+<script src="/javascripts/scripts.js"></script>
+<script src="/javascripts/statistiques.js"></script>
 <script src="/javascripts/main_js.js"></script>
 <script src="/javascripts/accueil.js"></script>
 </body>

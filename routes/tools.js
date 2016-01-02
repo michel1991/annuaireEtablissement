@@ -1,8 +1,12 @@
 /**
  * Created by michel on 21/12/2015.
  */
+'use strict';
+
 var request = require('request');
 var http = require('http');
+var xml2js = require('xml2js');
+
 module.exports =
 {
     remote_acces_region:'http://localhost:8984/region',
@@ -13,6 +17,7 @@ module.exports =
     remote_access_statut:'http://localhost:8984/statut',
     remote_access_type:'http://localhost:8984/type',
     remote_access_before_event:'http://localhost:8984/expandable?requete=',
+    remote_access_establissement_par_region:'http://localhost:8984/nbEtablRegion',
     getRegion: function (res)
     {
         var arrayRegion = [];
@@ -51,7 +56,6 @@ module.exports =
             }
         });
     },
-
     getAcademie: function (res)
     {
         var arrayAcademie = [];
@@ -71,7 +75,6 @@ module.exports =
             }
         });
     },
-
     getSigles: function (res)
     {
         var arraySigles = [];
@@ -163,6 +166,7 @@ module.exports =
                     //console.log("size " +myResponse.length);
                     for(var i =0; i<myResponse.length; i++)
                     {
+                        // TODO: Simplify using xml2json package
                         if((myResponse[i]).length>0)  //le split peut ne pas marcher
                         {
                             var stringEtablissement = myResponse[i].replace('<etablissement>', '');
@@ -174,7 +178,7 @@ module.exports =
 
                             for(var j =0; j<insideEtab.length; j++)
                             {
-                                //console.log(j +" " +insideEtab[j]);
+                                // console.log(j +" " +insideEtab[j]);
                                 switch (j)
                                 {
                                     case 0:
@@ -275,12 +279,26 @@ module.exports =
 
                 res.json(arrayEtablissement);
             });
+    },
 
-        /*res.json({
-            "name":"coucou"
-        });*/
-
+    getEtablissementParRegion: function getEtablissementParRegion(res) {
+      request(this.remote_access_establissement_par_region, function (error, response, body)
+      {
+          if (!error && response.statusCode == 200)
+          {
+            var resultJson = [];
+            xml2js.parseString(body, function (err, result) {
+              result.result.item.forEach(function (item) {
+                resultJson.push({
+                  "region": item.split("/")[0],
+                  "nb": parseFloat(item.split("/")[1])
+                });
+              })
+              res.json(resultJson);
+            });
+          }else{
+              res.json(error);
+          }
+      });
     }
 };
-
-
