@@ -9,7 +9,7 @@ $(function() {
         count++;
       });
       var width = $("#panel-373365").width(),
-        barHeight = 20;
+        barHeight = 15;
 
       var x = d3.scale.linear()
         .range([0, width]);
