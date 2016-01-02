@@ -61,7 +61,6 @@ declare function adef:beforeResearch($uai, $region)
     for $etab in db:open('etablissement_superieur')//etablissement
     where functx:is-value-in-sequence($etab/uai,(uai)) or
             functx:is-value-in-sequence($etab/region,(region))
-
     return $etab
 };
 

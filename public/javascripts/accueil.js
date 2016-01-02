@@ -463,7 +463,8 @@ function initialize() {
   }
   var map = new google.maps.Map(mapContainer, mapOptions);
 }
-google.maps.event.addDomListener(window, 'load', initialize);$(function() {
+google.maps.event.addDomListener(window, 'load', initialize);
+$(function() {
 
   $("#myTable1").css({
     'border-top': '0px solid #ddd'
