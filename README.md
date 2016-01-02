@@ -1,5 +1,4 @@
-<<<<<<< 5a13b6f284b3d57641f16e7d8f27a7953afb8b73
-# Annuaire Etablissement : Projet EXML miage1
+# Annuaire Etablissement : Projet XML miage1
 
 ## Introduction
 Projet destiné à la géolocalisation des établissments français
