@@ -18,6 +18,7 @@ module.exports = {
   remote_access_type: 'http://localhost:8984/type',
   remote_access_before_event: 'http://localhost:8984/expandable?requete=',
   remote_access_establissement_par_region: 'http://localhost:8984/nbEtablRegion',
+  remote_access_establissement_par_academie: 'http://localhost:8984/nbEtablAcademie',
 
   getRegion: function(res) {
     var arrayRegion = [];
@@ -199,8 +200,37 @@ module.exports = {
         // Pour chaque item mettre le résultat dans "resultJson"
         result.result.item.forEach(function(item) {
           resultJson.push({
-            "region": item.split("/")[0],
-            "nb": parseFloat(item.split("/")[1])
+            "key": item.split("/")[0],
+            "value": parseFloat(item.split("/")[1])
+          });
+        })
+
+        // Retourner le résultat
+        res.json(resultJson);
+      });
+    });
+  },
+
+  getEtablissementParAcademie: function getEtablissementParAcademie(res) {
+
+    // Envoie de la requête à la baseX
+    request(this.remote_access_establissement_par_academie, function(error, response, body) {
+
+      // Handle error
+      if (error || response.statusCode !== 200) {
+        return res.json(error);
+      }
+
+      var resultJson = [];
+
+      // Parse XML to JSON
+      xml2js.parseString(body, function(err, result) {
+
+        // Pour chaque item mettre le résultat dans "resultJson"
+        result.result.item.forEach(function(item) {
+          resultJson.push({
+            "key": item.split("/")[0],
+            "value": parseFloat(item.split("/")[1])
           });
         })
 

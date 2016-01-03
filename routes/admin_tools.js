@@ -62,4 +62,9 @@ router.get('/etablissementParRegion', function(req, res, next)
     tools.getEtablissementParRegion(res);
 });
 
+router.get('/etablissementParAcademie', function(req, res, next)
+{
+    tools.getEtablissementParAcademie(res);
+});
+
 module.exports = router;
