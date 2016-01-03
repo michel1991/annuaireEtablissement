@@ -1,7 +1,7 @@
-# Annuaire Etablissement : Projet XML miage1
+# Projet XML miage1 : Annuaire Etablissement
 
 ## Introduction
-Projet destiné à la géolocalisation des établissments français
+Projet destiné à la géolocalisation des établissements français
 
 ## Petite architecture
 - Le _client_ envoie une requête (souvent en _AJAX_) au serveur _Node.js_.
@@ -12,26 +12,31 @@ Projet destiné à la géolocalisation des établissments français
 
 ## Démarrer l'application
 
-### Configurer BaseX
+### Configurer et lancer BaseX
 
 - Télécharger _baseX_ qui est un logiciel _stand alone_ (sans installation)
 - Télécharger le fichier BDD XML contenant les établissements
 - Lancer la GUI de _baseX_ en lançant `./bin/basexgui` (ajouter `.bat` pour Windows)
 - Créer une base en important le fichier XML dans _baseX_ et nommer la *etablissement_superieur*
-- Installer le module __functx-1.0-doc__ présent dans le projet _git_
-- Pour activer les requêtes préconfigurées vous devez ajouter le fichier __adef.xq__ dans le dossier __webapp__ de _baseX_
+- Installer le module __functx-1.0-doc__ présent dans le projet _git_ (`options > packages > install` dans la _gui_ de _baseX_)
+- Pour activer les requêtes préconfigurées vous devez ajouter le fichier __adef.xq__ (présent dans le dossier __bd__ du projet) dans le dossier __webapp__ de _baseX_ (Pensez aux liens symboliques pour ne pas avoir à dupliquer les fichiers)
 - _baseX_ est configuré, vous pouvez lancer le serveur en utilisant le script `./bin/basexhttp` (ajouter `.bat` pour Windows)
+- Le serveur fonctionne sur à l'URL http://localhost:8984/ + `<id requête>`
 
-### Lancer le serveur Node.js
+### Installer et lancer le serveur Node.js
 
-- Pour lancer le serveur _Node.js_ utiliser simplement `npm start`
+- Pour installer le serveur _Node.js_ utiliser simplement `npm install`
 
-- Pour lancer le serveur en mode developpement utiliser __supervisor__ :
-  - Lorsque vous changez un élément du serveur _Node.js_, il doit être redémarré, __supervisor__ le redémarre automatiquement (gain de temps)
-  - Installer __supervisor__ : `npm install supervisor -g`
-  - Lancer l'application avec __supervisor__: `supervisor ./bin/www`
+- Pour lancer le serveur _Node.js_, deux méthodes :
 
-- Lancer votre navigateur à l'URL http://localhost:30001/adef pour accéder à la page
+  - Utiliser simplement `npm start`
+
+  - Utiliser l'outil __supervisor__ :
+    - Lorsque vous changez un élément du serveur _Node.js_, il doit être redémarré, __supervisor__ le redémarre automatiquement (gain de temps)
+    - Installer __supervisor__ : `npm install supervisor -g`
+    - Lancer l'application avec __supervisor__: `supervisor ./bin/www`
+
+- Lancer votre navigateur avec le http://localhost:30001/adef pour accéder à la page
 
 ## To do
 
