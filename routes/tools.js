@@ -238,5 +238,33 @@ module.exports = {
         res.json(resultJson);
       });
     });
+  },
+
+  getStatutParRegion: function getStatutParRegion(req, res, myUri) {
+
+    request(myUri, function(error, response, body) {
+      // Handle error
+      if (error || response.statusCode !== 200) {
+        return res.json(error);
+      }
+
+      var resultJson = [];
+
+      // Parse XML to JSON
+      xml2js.parseString(body, function(err, result) {
+
+        // Pour chaque item mettre le résultat dans "resultJson"
+        result.result.item.forEach(function(item) {
+          resultJson.push({
+            "key": item.split("/")[0],
+            "value": parseFloat(item.split("/")[1])
+          });
+        })
+
+        // Retourner le résultat
+        res.json(resultJson);
+      });
+    });
   }
+
 };

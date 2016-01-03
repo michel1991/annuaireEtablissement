@@ -1,4 +1,5 @@
 $(function() {
+
   $("#etablParRegion").on("click", function() {
     $.getJSON("/controller/etablissementParRegion", function(data) {
       cleanChart("#etablParRegion");
@@ -13,20 +14,65 @@ $(function() {
     });
   });
 
+  $.getJSON("/controller/region", function(data) {
+    loadRegionList(data);
+  });
+
+  $("#statutParRegion").on("click", function() {
+    cleanChart("#statutParRegion");
+    $.ajax({
+      url: "/controller/statutParRegion",
+      dataType: 'json',
+      data: {region: $("#regionStats").val()},
+      success: function(data) {
+        generationGraphe(data);
+      }
+    });
+
+    $("#regionStats").on("change", function () {
+      if ($("#statutParRegion").attr("active")) {
+        cleanChart("#statutParRegion");
+        $.ajax({
+          url: "/controller/statutParRegion",
+          dataType: 'json',
+          data: {region: $("#regionStats").val()},
+          success: function(data) {
+            generationGraphe(data);
+          }
+        });
+      }
+    });
+  });
+
   $('a[href="#panel-recherche"]').on("click", function() {
     $(".chart").hide();
   });
-  
+
   $('a[href="#panel-stats"]').on("click", function() {
     $(".chart").show();
   });
+
 });
+
+function loadRegionList(data) {
+  var items = [];
+  $('#regionStats option').remove();
+  $.each(data, function(key, val) {
+    $('#regionStats').append('<option value="' + val.name + '">' + val.name + '</option>');
+  });
+  $('#regionStats').select2().trigger('change');
+}
 
 function cleanChart(buttonId) {
   var statsButtons = $(".stats-button");
   statsButtons.attr("active", false).removeClass("btn-primary").addClass("btn-default");
   $(buttonId).attr("active", true).removeClass("btn-default").addClass("btn-primary");
   $(".chart").children().remove();
+  if ($("#statutParRegion").attr("active") === "true") {
+    $("#regionStats").attr("disabled", false);
+  } else {
+    $("#regionStats").attr("disabled", true);
+  }
 }
 
 function generationGraphe(data) {

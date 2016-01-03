@@ -113,6 +113,25 @@ declare
 };
 
 declare
+%rest:path("statutParRegion")
+%rest:query-param("region", "{$region}")
+%rest:GET function adef:execute_recherche($region) {
+    adef:rechercheEtablRegion($region)
+};
+
+declare function adef:rechercheEtablRegion($inputRegion){
+  <result>{
+    for $etab in  db:open('etablissement_superieur') //etablissement
+    let $region:= $etab//region
+    let $statut:= $etab//statut
+    where $etab//region=$inputRegion
+    group by $statut
+    order by count($etab) descending
+    return <item>{$statut}/{count($etab)}</item>
+  }</result>
+};
+
+declare
 %rest:path("region")
 %output:method("xhtml")
 %rest:GET function adef:execute_liste_region() {
