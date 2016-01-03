@@ -1,24 +1,25 @@
 $(function() {
   $("#etablParRegion").on("click", function() {
     $.getJSON("/controller/etablissementParRegion", function(data) {
-      var statsButtons = $(".stats-button");
-      statsButtons.attr("active", false).removeClass("btn-primary").addClass("btn-default");
-      $("#etablParRegion").attr("active", true).removeClass("btn-default").addClass("btn-primary");
-      $(".chart").children().remove();
+      cleanChart("#etablParRegion");
       generationGraphe(data);
     });
   });
 
   $("#etablParAcademie").on("click", function() {
     $.getJSON("/controller/etablissementParAcademie", function(data) {
-      var statsButtons = $(".stats-button");
-      statsButtons.attr("active", false).removeClass("btn-primary").addClass("btn-default");
-      $("#etablParAcademie").attr("active", true).removeClass("btn-default").addClass("btn-primary");
-      $(".chart").children().remove();
+      cleanChart("#etablParAcademie");
       generationGraphe(data);
     });
   });
 });
+
+function cleanChart(buttonId) {
+  var statsButtons = $(".stats-button");
+  statsButtons.attr("active", false).removeClass("btn-primary").addClass("btn-default");
+  $(buttonId).attr("active", true).removeClass("btn-default").addClass("btn-primary");
+  $(".chart").children().remove();
+}
 
 function generationGraphe(data) {
 
