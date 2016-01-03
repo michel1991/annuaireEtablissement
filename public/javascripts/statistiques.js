@@ -12,6 +12,14 @@ $(function() {
       generationGraphe(data);
     });
   });
+
+  $('a[href="#panel-recherche"]').on("click", function() {
+    $(".chart").hide();
+  });
+  
+  $('a[href="#panel-stats"]').on("click", function() {
+    $(".chart").show();
+  });
 });
 
 function cleanChart(buttonId) {
@@ -23,7 +31,7 @@ function cleanChart(buttonId) {
 
 function generationGraphe(data) {
 
-  var width = $("#panel-373365").width(),
+  var width = $("#panel-stats").width(),
     barHeight = 15;
 
   var x = d3.scale.linear()
