@@ -23,25 +23,30 @@ $(function() {
     $.ajax({
       url: "/controller/statutParRegion",
       dataType: 'json',
-      data: {region: $("#regionStats").val()},
+      data: {
+        region: $("#regionStats").val()
+      },
       success: function(data) {
         generationGraphe(data);
       }
     });
 
-    $("#regionStats").on("change", function () {
-      if ($("#statutParRegion").attr("active")) {
-        cleanChart("#statutParRegion");
-        $.ajax({
-          url: "/controller/statutParRegion",
-          dataType: 'json',
-          data: {region: $("#regionStats").val()},
-          success: function(data) {
-            generationGraphe(data);
-          }
-        });
-      }
-    });
+  });
+
+  $("#regionStats").on("change", function() {
+    if ($("#statutParRegion").attr("active")) {
+      cleanChart("#statutParRegion");
+      $.ajax({
+        url: "/controller/statutParRegion",
+        dataType: 'json',
+        data: {
+          region: $("#regionStats").val()
+        },
+        success: function(data) {
+          generationGraphe(data);
+        }
+      });
+    }
   });
 
   $('a[href="#panel-recherche"]').on("click", function() {
@@ -55,12 +60,10 @@ $(function() {
 });
 
 function loadRegionList(data) {
-  var items = [];
   $('#regionStats option').remove();
   $.each(data, function(key, val) {
     $('#regionStats').append('<option value="' + val.name + '">' + val.name + '</option>');
   });
-  $('#regionStats').select2().trigger('change');
 }
 
 function cleanChart(buttonId) {
@@ -68,6 +71,7 @@ function cleanChart(buttonId) {
   statsButtons.attr("active", false).removeClass("btn-primary").addClass("btn-default");
   $(buttonId).attr("active", true).removeClass("btn-default").addClass("btn-primary");
   $(".chart").children().remove();
+
   if ($("#statutParRegion").attr("active") === "true") {
     $("#regionStats").attr("disabled", false);
   } else {
