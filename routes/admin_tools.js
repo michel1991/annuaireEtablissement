@@ -5,6 +5,7 @@ var express = require('express');
 var path = require('path');
 var tools = require(path.join(__dirname, 'tools'));
 var router = express.Router();
+var config = require('config');
 
 
 /* Controller for useful requests. */
@@ -43,7 +44,7 @@ router.get('/type', function(req, res, next) {
 });
 
 router.get('/expandEtablissement', function(req, res, next) {
-  var myUri = req.originalUrl.replace("/controller/expandEtablissement?jocker=", "http://localhost:8984/expandable?requete=");
+  var myUri = req.originalUrl.replace("/controller/expandEtablissement?jocker=", `${config.client}/expandable?requete=`);
   // console.log("uri " + myUri);
 
   tools.expandable(req, res, myUri);
@@ -60,7 +61,7 @@ router.get('/etablissementParAcademie', function(req, res, next) {
 router.get('/statutParRegion', function(req, res, next) {
   // console.log(decodeURI(req.query.region));
   var region = encodeURI(req.query.region.trim());
-  var myUri = `http://localhost:8984/statutParRegion?region=${region}`
+  var myUri = `${config.client}/statutParRegion?region=${region}`
   // console.log("uri " + myUri);
 
   tools.getStatutParRegion(req, res, myUri);

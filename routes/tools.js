@@ -6,19 +6,20 @@
 var request = require('request');
 var http = require('http');
 var xml2js = require('xml2js');
+var config = require('config');
 
 module.exports = {
 
-  remote_acces_region: 'http://localhost:8984/region',
-  remote_access_tutelle: 'http://localhost:8984/tutelle',
-  remote_access_academie: 'http://localhost:8984/academie',
-  remote_access_sigle: 'http://localhost:8984/sigle',
-  remote_access_universite: 'http://localhost:8984/universite',
-  remote_access_statut: 'http://localhost:8984/statut',
-  remote_access_type: 'http://localhost:8984/type',
-  remote_access_before_event: 'http://localhost:8984/expandable?requete=',
-  remote_access_establissement_par_region: 'http://localhost:8984/nbEtablRegion',
-  remote_access_establissement_par_academie: 'http://localhost:8984/nbEtablAcademie',
+  remote_acces_region: `${config.client}/region`,
+  remote_access_tutelle: `${config.client}/tutelle`,
+  remote_access_academie: `${config.client}/academie`,
+  remote_access_sigle: `${config.client}/sigle`,
+  remote_access_universite: `${config.client}/universite`,
+  remote_access_statut: `${config.client}/statut`,
+  remote_access_type: `${config.client}/type`,
+  remote_access_before_event: `${config.client}/expandable?requete=`,
+  remote_access_establissement_par_region: `${config.client}/nbEtablRegion`,
+  remote_access_establissement_par_academie: `${config.client}/nbEtablAcademie`,
 
   getRegion: function(res) {
     var arrayRegion = [];
