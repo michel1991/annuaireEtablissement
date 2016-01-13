@@ -7,7 +7,9 @@ a {
   color: #00B7FF;
 }
 
-
+#tableEtablissements td:hover {
+  cursor:pointer;
+}
 
 #chart rect {
   fill: steelblue;

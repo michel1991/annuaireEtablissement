@@ -171,8 +171,7 @@
                                 <table id="tableEtablissements">
                                   <thead>
                                     <tr>
-                                      <th data-field="state" data-checkbox="true">
-                                      </th>
+                                      <th data-field="state" data-checkbox="true"/>
                                       <th data-halign="center" data-field="uai" data-width="5%">UAI</th>
                                       <th data-halign="center" data-align="center"  data-field="name" data-sortable="true">NOM</th>
                                       <th data-halign="center" data-align="center" data-field="type">TYPE</th>
@@ -184,6 +183,25 @@
                                     </tr>
                                   </thead>
                                   <tbody id="myTbody">
+                                    <!-- Modal -->
+                                    <div class="modal fade" id="myModal" role="dialog">
+                                      <div class="modal-dialog">
+
+                                        <!-- Modal content-->
+                                        <div class="modal-content">
+                                          <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                            <h4 class="modal-title"><b>Détails de l'établissement</b></h4>
+                                          </div>
+                                          <div class="modal-body">
+                                          </div>
+                                          <div class="modal-footer">
+                                            <button type="button" class="btn btn-primary" data-dismiss="modal">Fermer</button>
+                                          </div>
+                                        </div>
+
+                                      </div>
+                                    </div>
                                   </tbody>
                                 </table>
                               </div>

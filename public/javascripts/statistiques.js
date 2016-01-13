@@ -124,29 +124,6 @@ function generationPieChart(data) {
   .text(function(d, i) {
     return `${data[i].key} (${data[i].value})`;
   });
-
-  // var legendRectSize = 15,
-  //     legendSpacing = 5;
-  //
-  // var legend = vis.append('g')
-  //     .attr('class', 'legend')
-  //     .attr('transform', function(d, i) {
-  //       var height = legendRectSize;
-  //       var x = 100;
-  //       var y = i * height;
-  //       return 'translate(' + x + ',' + y + ')';
-  //   });
-  //
-  // legend.append('rect')
-  //   .attr('width', legendRectSize)
-  //   .attr('height', legendRectSize)
-  //   .style('fill', color)
-  //   .style('stroke', color);
-  //
-  // legend.append('text')
-  //   .attr('x', 100 + legendRectSize + legendSpacing)
-  //   .attr('y', 100 + legendRectSize - legendSpacing)
-  //   .text(function(d) { return d; });
 }
 
 function generationGraphe(data) {

@@ -132,6 +132,22 @@ declare function adef:rechercheEtablRegion($inputRegion){
 };
 
 declare
+%rest:path("rchUAI")
+%rest:query-param("uai", "{$uai}")
+%rest:query-param("sigle", "{$sigle}")
+%rest:GET function adef:execute_rchUAI($uai, $sigle) {
+    adef:rchUAI($uai, $sigle)
+};
+
+declare function adef:rchUAI($inputUAI, $inputSigle){
+  <result>{
+    for $etab in db:open('etablissement_superieur') //etablissement
+    where $etab//UAI=$inputUAI and $etab//sigle=$inputSigle
+    return <item>{$etab}</item>
+  }</result>
+};
+
+declare
 %rest:path("region")
 %output:method("xhtml")
 %rest:GET function adef:execute_liste_region() {

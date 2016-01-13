@@ -67,4 +67,14 @@ router.get('/statutParRegion', function(req, res, next) {
   tools.getStatutParRegion(req, res, myUri);
 });
 
+router.get('/rchUAI', function(req, res, next) {
+  // console.log(decodeURI(req.query.region));
+  var uai = encodeURI(req.query.uai.trim());
+  var sigle = encodeURI(req.query.sigle.trim());
+  var myUri = `${config.client}/rchUAI?uai=${uai}&sigle=${sigle}`
+  // console.log("uri " + myUri);
+
+  tools.getRchUai(req, res, myUri);
+});
+
 module.exports = router;

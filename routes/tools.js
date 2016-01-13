@@ -266,6 +266,26 @@ module.exports = {
         res.json(resultJson);
       });
     });
-  }
+  },
+
+  getRchUai: function getRchUai(req, res, myUri) {
+
+    console.log(myUri);
+    request(myUri, function(error, response, body) {
+      // Handle error
+      if (error || response.statusCode !== 200) {
+        return res.json(error);
+      }
+
+      var resultJson = [];
+
+      // Parse XML to JSON
+      xml2js.parseString(body, function(err, result) {
+        console.log(result.result.item[0].etablissement[0].universite);
+        // Retourner le résultat
+        res.json(result.result.item[0].etablissement[0]);
+      });
+    });
+  },
 
 };

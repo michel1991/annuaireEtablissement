@@ -18,6 +18,33 @@ $(function() {
     pageSize: 8,
     sidePagination: 'client',
     pageNumber: 1
+    onDblClickRow: function (row, $element) {
+
+      function capitalizeFirstLetter(string) {
+          return string.charAt(0).toUpperCase() + string.slice(1);
+      }
+
+      var modal = $("#myModal").modal();
+      modal.find('.modal-body').children().remove();
+
+      $.ajax({
+        url: "/controller/rchUAI",
+        dataType: 'json',
+        data: {
+          uai: row.uai,
+          sigle: row.sigle
+        },
+        success: function(data) {
+          for(var key in data) {
+            if (data[key][0] && key !== "longitude_X" && key !== "latitude_Y" && key !== "lien") {
+             modal.find('.modal-body').append(`<p><b>${capitalizeFirstLetter(key)}</b> : ${data[key][0]}</p>`);
+            } else if (data[key][0] && key === "lien") {
+              modal.find('.modal-body').append(`<p><b>${capitalizeFirstLetter(key)}</b> : <a target="_blank" href="${data[key][0]}">${data[key][0]}</a></p>`);
+            }
+          };
+        }
+      });
+    }
 
   });
 
@@ -942,7 +969,7 @@ function initialize() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
   map = new google.maps.Map(mapContainer, mapOptions);
-  
+
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 
@@ -1002,5 +1029,3 @@ function getInfoMarker(nom, cp, adresse)
          "<p>"+adresse+"</p>"+
        "</div>"
 }
-
-
