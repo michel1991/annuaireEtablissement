@@ -1,3 +1,7 @@
+var coordonnees = [];
+var zoneMarqueurs = new google.maps.LatLngBounds();
+var tableauxMarqueurs = [];
+map=null;
 $(function() {
 
   $("#myTable1").css({
@@ -62,7 +66,21 @@ $(function() {
     var target = $(e.target).attr("href"); // activated tab
     if (target == '#panel-carte') {
       var dataSelected = $tableB.bootstrapTable('getAllSelections');
+        supprimerTousLesMarquers();
+        coordonnees=[];
+
+        for(var i =0; i<dataSelected.length; i++)
+        {
+            coordonnees.push({
+                lat:dataSelected[i].latitude,
+                lng:dataSelected[i].longitude
+                /*cp:dataSelected[i].cp,
+                name2:dataSelected[i].name,
+                adresseEtab:dataSelected[i].adresseEtab*/
+            });
+        }
       // console.log(dataSelected);
+        appliqueAjouterMarker();
     }
   });
   /*
@@ -441,7 +459,8 @@ $(function() {
           tutelle: dataEtab[i].tutelle,
           adresse: dataEtab[i].adresseEtab,
           longitude: parseFloat(dataEtab[i].longitude),
-          latitude: parseFloat(dataEtab[i].latitude)
+          latitude: parseFloat(dataEtab[i].latitude),
+            cp: dataEtab[i].cp
         }
       });
 
@@ -454,16 +473,7 @@ $(function() {
 
 });
 
-function initialize() {
-  var mapContainer = document.getElementById('map');
-  var mapOptions = {
-    center: new google.maps.LatLng(44.5403, -78.5463),
-    zoom: 8,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  }
-  var map = new google.maps.Map(mapContainer, mapOptions);
-}
-google.maps.event.addDomListener(window, 'load', initialize);
+
 $(function() {
 
   $("#myTable1").css({
@@ -528,7 +538,9 @@ $(function() {
     var target = $(e.target).attr("href"); // activated tab
     if (target == '#panel-carte') {
       var dataSelected = $tableB.bootstrapTable('getAllSelections');
-      console.log(dataSelected);
+      coordonnees = [];
+
+      //console.log(dataSelected);
     }
   });
   /*
@@ -711,7 +723,7 @@ $(function() {
     optionUniversite = $("#univ").val();
     optionStatut = $("#statut").val();
     optionType = $("#type").val();
-    var tabSelectionUai = $uaiMs.getSelection();
+    var tabSelectionUai = $uaiMs.getSelection(); //generer un exception flat ne supprimer pas ce commentaire
 
     var tabCondition = [];
     urlT = "";
@@ -909,7 +921,8 @@ $(function() {
           tutelle: dataEtab[i].tutelle,
           adresse: dataEtab[i].adresseEtab,
           longitude: parseFloat(dataEtab[i].longitude),
-          latitude: parseFloat(dataEtab[i].latitude)
+          latitude: parseFloat(dataEtab[i].latitude),
+            cp: dataEtab[i].cp
         }
       });
 
@@ -920,6 +933,7 @@ $(function() {
 
 });
 
+
 function initialize() {
   var mapContainer = document.getElementById('map');
   var mapOptions = {
@@ -927,6 +941,66 @@ function initialize() {
     zoom: 8,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   }
-  var map = new google.maps.Map(mapContainer, mapOptions);
+  map = new google.maps.Map(mapContainer, mapOptions);
+  
 }
 google.maps.event.addDomListener(window, 'load', initialize);
+
+/*
+    EXEMPLE TIRER DU WEB COPYRIGHT
+ */
+function ajouteMarqueur( latlng , maCarte) {
+    var latitude = latlng.lat;
+    var longitude = latlng.lng;
+    var optionsMarqueur = {
+        map: maCarte,
+        position: new google.maps.LatLng( latitude, longitude )
+    };
+    var marqueur = new google.maps.Marker( optionsMarqueur );
+
+    //ajouer un évenement pour centrer la carte
+    /*var infowindow = new google.maps.InfoWindow({
+        content:getInfoMarker(latlng.name2, latlng.cp, latlng.adresseEtab)
+    });*/
+
+    google.maps.event.addListener( marqueur, "click", function( evenement ){
+        maCarte.panTo( evenement.latLng );
+        //infowindow.open(map, marqueur);
+    });
+    zoneMarqueurs.extend(marqueur.getPosition());
+    tableauxMarqueurs.push(marqueur);
+
+}
+
+function appliqueAjouterMarker()
+{
+    for(var i =0; i<coordonnees.length; i++)
+    {
+        ajouteMarqueur(coordonnees[i], map);
+
+    }
+    map.fitBounds(zoneMarqueurs);
+}
+
+// Sets the map on all markers in the array.
+// google map example copyRight j'ai rien imagniner
+function supprimerTousLesMarquers() {
+    for (var i = 0; i <tableauxMarqueurs.length; i++)
+    {
+        tableauxMarqueurs[i].setMap(null);
+    }
+    tableauxMarqueurs=[];
+}
+
+function getInfoMarker(nom, cp, adresse)
+{
+    return '<div class="lead">' +
+        "<p> " +
+            "<strong>"+nom+"</strong>" +
+         "</p>" +
+          "<p>"+cp+"</p>"+
+         "<p>"+adresse+"</p>"+
+       "</div>"
+}
+
+
