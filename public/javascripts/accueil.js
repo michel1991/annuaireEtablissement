@@ -17,7 +17,7 @@ $(function() {
     halign: "center",
     pageSize: 8,
     sidePagination: 'client',
-    pageNumber: 1
+    pageNumber: 1,
     onDblClickRow: function (row, $element) {
 
       function capitalizeFirstLetter(string) {
