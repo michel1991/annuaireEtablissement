@@ -10,16 +10,16 @@ var config = require('config');
 
 module.exports = {
 
-  remote_acces_region: `${config.client}/region`,
-  remote_access_tutelle: `${config.client}/tutelle`,
-  remote_access_academie: `${config.client}/academie`,
-  remote_access_sigle: `${config.client}/sigle`,
-  remote_access_universite: `${config.client}/universite`,
-  remote_access_statut: `${config.client}/statut`,
-  remote_access_type: `${config.client}/type`,
-  remote_access_before_event: `${config.client}/expandable?requete=`,
-  remote_access_establissement_par_region: `${config.client}/nbEtablRegion`,
-  remote_access_establissement_par_academie: `${config.client}/nbEtablAcademie`,
+  remote_acces_region:`${config.client}/region`,
+  remote_access_tutelle:`${config.client}/tutelle`,
+  remote_access_academie:`${config.client}/academie`,
+  remote_access_sigle:`${config.client}/sigle`,
+  remote_access_universite:`${config.client}/universite`,
+  remote_access_statut:`${config.client}/statut`,
+  remote_access_type:`${config.client}/type`,
+  remote_access_before_event:`${config.client}/expandable?requete=`,
+  remote_access_establissement_par_region:`${config.client}/nbEtablRegion`,
+  remote_access_establissement_par_academie:`${config.client}/nbEtablAcademie`,
 
   getRegion: function(res) {
     var arrayRegion = [];
@@ -38,7 +38,7 @@ module.exports = {
     });
   },
 
-  getTutelle: function(res) {
+  getTutelle:function(res) {
     var arrayTutelle = [];
     request(this.remote_access_tutelle, function(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -55,7 +55,7 @@ module.exports = {
     });
   },
 
-  getAcademie: function(res) {
+  getAcademie:function(res) {
     var arrayAcademie = [];
     request(this.remote_access_academie, function(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -72,7 +72,7 @@ module.exports = {
     });
   },
 
-  getSigles: function(res) {
+  getSigles:function(res) {
     var arraySigles = [];
     request(this.remote_access_sigle, function(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -89,7 +89,7 @@ module.exports = {
     });
   },
 
-  getUniversite: function(res) {
+  getUniversite:function(res) {
     var arrayUniversite = [];
     request(this.remote_access_universite, function(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -106,7 +106,7 @@ module.exports = {
     });
   },
 
-  getStatuts: function(res) {
+  getStatuts:function(res) {
     var arrayStatut = [];
     request(this.remote_access_statut, function(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -123,7 +123,7 @@ module.exports = {
     });
   },
 
-  getTypes: function(res) {
+  getTypes:function(res) {
     var arrayType = [];
     request(this.remote_access_type, function(error, response, body) {
       if (!error && response.statusCode == 200) {
@@ -140,50 +140,141 @@ module.exports = {
     });
   },
 
-  expandable: function(req, res, myUri) {
+expandable: function(req, res, myUri)
+{
     var myJocker = req.query.jocker;
-    request(myUri, function(error, response, body) {
-      var arrayEtablissement = [];
+    request(myUri,function (error, response, body)
+    {
+        //console.log(response.statusCode);
+        var arrayEtablissement =[];
+        if (!error && response.statusCode == 200)
+        {
 
-      // Handle error
-      if (error || response.statusCode !== 200) {
-        res.json(error);
-        return;
-      }
+            console.log(body);
+            var myResponse = body.split('</etablissement>');
+            //console.log("size " +myResponse.length);
+            for(var i =0; i<myResponse.length; i++)
+            {
+                if((myResponse[i]).length>0)  //le split peut ne pas marcher
+                {
+                    var stringEtablissement = myResponse[i].replace('<etablissement>', '');
+                    var insideEtab =stringEtablissement.split("</");
 
-      // Entourer le resultat d'une balise ouvrante et fermante pour parser en JSON
-      var xml = `<resultat>${body}</resultat>`;
+                    var valueUAI="", valueType="", valueNom="", valueSigle="", valueStatut="", valueTutelle="",
+                        valueUniversite="", valueAdresse="", valueCp="", valueCommune="", valueDepart="",
+                        valueAcademie="", valueRegion="", valueLongitude="", valueLatitude="", valueLien="";
 
-      // Parse XML => JSON (plus userfriendly)
-      xml2js.parseString(xml, function (err, result) {
+                    for(var j =0; j<insideEtab.length; j++)
+                    {
+                        //console.log(j +" " +insideEtab[j]);
+                        switch (j)
+                        {
+                            case 0:
+                                valueUAI=(insideEtab[j]).replace("<UAI>", "").replace("UAI>", "").replace("<UAI", "").trim();
+                                break;
+                            case 1:
+                                valueType=(insideEtab[j]).replace("<type>", "").replace("type>", "").replace("UAI>", "").replace("<type", "").trim();
+                                break;
+                            case 2:
+                                //replace 3 = ancien
+                                valueNom=(insideEtab[j]).replace("<nom>", "").replace("nom>", "").replace("type>", "").replace("<nom", "").trim();
+                                break;
+                            case 3:
+                                valueSigle=(insideEtab[j]).replace("<sigle>", "").replace("sigle>", "").replace("nom>", "").replace("<type", "").trim();
+                                break;
+                            case 4:
+                                valueStatut=(insideEtab[j]).replace("<statut>", "").replace("statut>", "").replace("sigle>", "").replace("<statut", "").trim();
+                                break;
+                            case 5:
+                                valueTutelle=(insideEtab[j]).replace("<tutelle>", "").replace("tutelle>", "").replace("statut>", "").replace("<tutelle", "").trim();
+                                break
+                            case 6:
+                                valueUniversite=(insideEtab[j]).replace("<universite>", "").replace("universite>", "").replace("tutelle>", "").replace("<universite", "").trim();
 
-        // Pour chaque etablissement, ajouter les valeur dans le tableau "arrayEtablissement"
-        result.resultat.etablissement.forEach(function (etablissement) {
-          arrayEtablissement.push({
-            id: etablissement.UAI[0],
-            typeEtab: etablissement.type[0],
-            name: etablissement.nom[0],
-            sigle: etablissement.sigle[0],
-            statutEtab: etablissement.statut[0],
-            tutelle: etablissement.tutelle[0],
-            universite: etablissement.universite[0],
-            adresseEtab: etablissement.adresse[0],
-            cp: etablissement.cp[0],
-            commune: etablissement.commune[0],
-            academie: etablissement.academie[0],
-            region: etablissement.region[0],
-            longitude: etablissement.longitude_X[0],
-            latitude: etablissement.latitude_Y[0],
-            lien: etablissement.lien[0]
-          });
-        });
-      });
-      // Retourner le résultat
-      res.json(arrayEtablissement);
+                                break;
+                            case 7:
+                                valueAdresse=(insideEtab[j]).replace("<adresse>", "").replace("adresse>", "").replace("universite>", "").replace("<adresse", "").trim();
+                                break;
+                            case 8:
+                                valueCp=(insideEtab[j]).replace("<cp>", "").replace("cp>", "").replace("adresse>", "").replace("<cp", "").trim();
+                                break;
+                            case 9:
+                                valueCommune=(insideEtab[j]).replace("<commune>", "").replace("commune>", "").replace("cp>", "").replace("<commune", "").trim();
+                                break;
+                            case 10:
+                                valueDepart=(insideEtab[j]).replace("<departement>", "").replace("departement>", "").replace("commune>", "").replace("<departement", "").trim();
+                                break;
+                            case 11:
+                                valueAcademie=(insideEtab[j]).replace("<academie>", "").replace("academie>", "").replace("departement>", "").replace("<academie", "").trim();
+                                break;
+                            case 12:
+                                valueRegion=(insideEtab[j]).replace("<region>", "").replace("region>", "").replace("academie>", "").replace("<region", "").trim();
+                                break;
+                            case 13:
+                                valueLongitude=(insideEtab[j]).replace("<longitude_X>", "").replace("longitude_X>", "").replace("region>", "").replace("<longitude_X", "").trim();
+                                break;
+                            case 14:
+                                valueLatitude=(insideEtab[j]).replace("<latitude_Y>", "").replace("latitude_Y>", "").replace("longitude_X>", "").replace("<latitude_Y", "").trim();
+                                break;
+                            case 15:
+                                valueLien=(insideEtab[j]).replace("<lien>", "").replace("lien>", "").replace("latitude_Y>", "").replace("<lien", "").trim();
+                                break;
+                        }
+                    }
+                    arrayEtablissement[i] = {
+
+                        id: valueUAI,
+                        typeEtab:valueType,
+                        name:valueNom,
+                        sigle:valueSigle,
+                        statutEtab:valueStatut,
+                        tutelle:valueTutelle,
+                        universite:valueUniversite,
+                        adresseEtab:valueAdresse,
+                        cp:valueCp,
+                        commune:valueCommune,
+                        academie:valueAcademie,
+                        region:valueRegion,
+                        longitude:valueLongitude,
+                        latitude:valueLatitude,
+                        lien:valueLien
+
+                    };
+                }// fin du if split peut ne pas marcher
+
+                /*arrayEtablissement[i] = {
+                 uai: valueUAI,
+                 typeEtab:valueType,
+                 nom:valueNom,
+                 sigle:valueSigle,
+                 statutEtab:valueStatut,
+                 tutelle:valueTutelle,
+                 universite:valueUniversite,
+                 adresseEtab:valueAdresse,
+                 cp:valueCp,
+                 commune:valueCommune,
+                 academie:valueAcademie,
+                 region:valueRegion,
+                 longitude:valueLongitude,
+                 latitude:valueLatitude,
+                 lien:valueLien
+                 };*/
+
+            }
+
+            //console.log(arrayEtablissement);
+        }//end status code 200
+
+        res.json(arrayEtablissement);
     });
-  },
 
-  getEtablissementParRegion: function getEtablissementParRegion(res) {
+    /*res.json({
+     "name":"coucou"
+     });*/
+
+},
+
+  getEtablissementParRegion:function getEtablissementParRegion(res) {
 
     // Envoie de la requête à la baseX
     request(this.remote_access_establissement_par_region, function(error, response, body) {
@@ -212,7 +303,7 @@ module.exports = {
     });
   },
 
-  getEtablissementParAcademie: function getEtablissementParAcademie(res) {
+  getEtablissementParAcademie:function getEtablissementParAcademie(res) {
 
     // Envoie de la requête à la baseX
     request(this.remote_access_establissement_par_academie, function(error, response, body) {
@@ -241,7 +332,7 @@ module.exports = {
     });
   },
 
-  getStatutParRegion: function getStatutParRegion(req, res, myUri) {
+  getStatutParRegion:function getStatutParRegion(req, res, myUri) {
 
     request(myUri, function(error, response, body) {
       // Handle error
